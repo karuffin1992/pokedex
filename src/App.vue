@@ -1,23 +1,49 @@
 <template>
   <div id="app">
-    <Pokedex />
   </div>
 </template>
 
 <script>
-import Pokedex from './components/Pokedex.vue'
-import pokemon from '@/mixins/pokemon'
+import pokemonWrapper from '@/mixins/pokemonWrapper'
+import PokedexGen from '@/classes/PokedexGen.js'
 
 export default {
   name: 'app',
   mixins: [
-    pokemon
+    pokemonWrapper
   ],
-  components: {
-    Pokedex
+  async created () {
+    // Get all generations and add them to object
+    try {
+      const result = await this.getAllGenerations()
+      // Adding to object
+      result.forEach((el) => {
+        let newItem, nextID, genName
+
+        nextID = this.pokedex.generations.nextID
+        genName = el.name
+
+        newItem = new PokedexGen(nextID, genName)
+
+        this.pokedex.generations.gen.push(newItem)
+
+        this.pokedex.generations.nextID++
+      })
+
+      console.log(this.pokedex)
+    } catch (error) {
+      console.log(error)
+    }
   },
-  created () {
-    const res = this.getAllPokemon()
+  data () {
+    return {
+      pokedex: {
+        generations: {
+          nextID: 0,
+          gen: []
+        }
+      }
+    }
   }
 }
 </script>
