@@ -1,4 +1,4 @@
-# Pokdex (Vue)
+# Pokedex (Vue)
 
 # What is the Pokedex?
 For anyone who has played Pokemon, the Pokedex was a digital encyclopedia that stored all of the information of all Pokemon in a database.
