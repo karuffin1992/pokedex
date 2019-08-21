@@ -38,19 +38,31 @@ export default {
       return pokemon
     },
     async getPokemonByGen (gen) {
-      const endpoint = `/generation/${gen}`
-      const url = `${this.api}${endpoint}`
-      const res = await axios(url)
-      const pokemon = res.data.pokemon_entries
-      return pokemon
+      try {
+        const endpoint = `/generation/${gen}`
+        const url = `${this.api}${endpoint}`
+        const res = await axios(url)
+        return res.data.pokemon_species
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async getRegionByGen (gen) {
+      try {
+        const endpoint = `/generation/${gen}`
+        const url = `${this.api}${endpoint}`
+        const res = await axios(url)
+        return res.data.main_region.name
+      } catch (error) {
+        console.log(error)
+      }
     },
     async getAllGenerations () {
       try {
         const endpoint = `/generation/`
         const url = `${this.api}${endpoint}`
         const res = await axios(url)
-        const gens = res.data.results
-        return gens
+        return res.data.results
       } catch (error) {
         console.log(error)
       }

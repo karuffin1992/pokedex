@@ -13,7 +13,7 @@ export default {
     pokemonWrapper
   ],
   async created () {
-    // Get all generations and add them to object
+    // Get all generations
     try {
       const result = await this.getAllGenerations()
       // Adding to object
@@ -29,8 +29,69 @@ export default {
 
         this.pokedex.generations.nextID++
       })
+    } catch (error) {
+      console.log(error)
+    }
 
-      console.log(this.pokedex)
+    // Get region based on generation
+    try {
+      let gens = this.pokedex.generations.gen
+
+      for (var gen in gens) {
+        let genName, regionName
+
+        genName = gens[gen].genName
+        regionName = await this.getRegionByGen(genName)
+
+        gens[gen].name = regionName
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+    // Get total number of pokemon per generation
+    try {
+      let gens = this.pokedex.generations.gen
+
+      for (var gen in gens) {
+        let genName, res
+
+        genName = gens[gen].genName
+        res = await this.getPokemonByGen(genName)
+
+        gens[gen].totalNumOfPokemon = res.length
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+    /*
+      Get pokemon list based on region
+
+      PokeAPI doesn't have Alolan pokemon sorted into region,
+      so I will manually enter them into their respective lists
+      based on the national dex
+    */
+
+    try {
+      let gens = this.pokedex.generations.gen
+      let allPokes = await this.getAllPokemon()
+      console.log(allPokes)
+
+      for (var gen in gens) {
+        let totalNum, pokeArr
+
+        pokeArr = []
+        totalNum = gens[gen].totalNumOfPokemon
+
+        for (let i = 0; i < totalNum; i++) {
+          pokeArr.push(allPokes[i])
+        }
+
+        allPokes.splice(0, totalNum)
+
+        gens[gen].pokemonList = pokeArr
+      }
     } catch (error) {
       console.log(error)
     }
