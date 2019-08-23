@@ -1,17 +1,32 @@
 <template>
-  <div id="app">
+  <div class="app">
+    <h1>{{ name }}</h1>
+    <Search />
+    <Pokedex
+      v-for="gen in pokedex.generations.gen"
+      v-bind:key="gen.id"
+      v-bind:name="gen.name"
+      v-bind:genName="gen.genName"
+      v-bind:pokemonList="gen.pokemonList"
+    />
   </div>
 </template>
 
 <script>
 import pokemonWrapper from '@/mixins/pokemonWrapper'
 import PokedexGen from '@/classes/PokedexGen.js'
+import Pokedex from './components/Pokedex.vue'
+import Search from './components/Search.vue'
 
 export default {
   name: 'app',
   mixins: [
     pokemonWrapper
   ],
+  components: {
+    Pokedex,
+    Search
+  },
   async created () {
     // Get all generations
     try {
@@ -37,7 +52,7 @@ export default {
     try {
       let gens = this.pokedex.generations.gen
 
-      for (var gen in gens) {
+      for (let gen in gens) {
         let genName, regionName
 
         genName = gens[gen].genName
@@ -53,7 +68,7 @@ export default {
     try {
       let gens = this.pokedex.generations.gen
 
-      for (var gen in gens) {
+      for (let gen in gens) {
         let genName, res
 
         genName = gens[gen].genName
@@ -76,7 +91,6 @@ export default {
     try {
       let gens = this.pokedex.generations.gen
       let allPokes = await this.getAllPokemon()
-      console.log(allPokes)
 
       for (var gen in gens) {
         let totalNum, pokeArr
@@ -98,6 +112,7 @@ export default {
   },
   data () {
     return {
+      name: 'Pokedex',
       pokedex: {
         generations: {
           nextID: 0,
@@ -110,4 +125,30 @@ export default {
 </script>
 
 <style lang="scss">
+$defaulColor: #2c32be;
+$white: #fff;
+
+html {
+  box-sizing: border-box;
+}
+
+html *,
+html *:before,
+html *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Teko', sans-serif;
+  background: $defaulColor;
+  background: linear-gradient(90deg, rgba(44,50,190,1) 0%, rgba(29,32,115,1) 50%, rgba(6,8,48,1) 100%);
+}
+
+.app h1 {
+  text-align: center;
+  color: $white;
+  font-size: 5em;
+  font-weight: 500;
+  margin: .3em 0 0 0;
+}
 </style>
