@@ -1,6 +1,9 @@
 <template>
     <div class="pokedex-card">
-        <h4>Text</h4>
+        <div class="pokedex-card-header">
+          <div class="poke-name">text</div>
+          <div class="poke-number">01</div>
+        </div>
     </div>
 </template>
 
@@ -14,5 +17,44 @@ export default {
 <style scoped lang="scss">
 $black: #000;
 $white: #fff;
-$purple: rgba(6,8,48,1);
+$lightBrillBlue: #3b43e6;
+
+.pokedex-card {
+  width: 200px;
+  height: 200px;
+  background-color: $white;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border: 1px solid $lightBrillBlue;
+  border-radius: 0 15px 15px 15px;
+}
+
+.pokedex-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.pokedex-card-header {
+  height: 35px;
+  background-color: $lightBrillBlue;
+  border-radius: 0 15px 0 0;
+}
+
+.poke-name {
+  float: left;
+  margin: 6px 0px 0 10px;
+  font-size: 20px;
+  color: $white;
+}
+
+.poke-number {
+  float: right;
+  width: 35px;
+  background-color: $white;
+  border-bottom: 1px solid $white;
+  color: $lightBrillBlue;
+  font-size: 25px;
+  text-align: center;
+  align-items: center;
+  border-radius: 15px 15px 0px 15px;
+}
 </style>
