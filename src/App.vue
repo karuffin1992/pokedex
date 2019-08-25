@@ -38,11 +38,17 @@ export default {
         nextID = this.pokedex.generations.nextID
         genName = el.name
 
-        newItem = new PokedexGen(nextID, genName)
+        // Current API does not support Alolan pokemon in National Dex
+        // So, we ignore it until it is ready.
 
-        this.pokedex.generations.gen.push(newItem)
+        // SVG's doesn't have Gen 6 either, so will need to find another SVG pack.
+        if (genName !== 'generation-vii' && genName !== 'generation-vi') {
+          newItem = new PokedexGen(nextID, genName)
 
-        this.pokedex.generations.nextID++
+          this.pokedex.generations.gen.push(newItem)
+
+          this.pokedex.generations.nextID++
+        }
       })
     } catch (error) {
       console.log(error)

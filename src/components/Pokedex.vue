@@ -4,7 +4,12 @@
       <h2>{{ name }} ({{ genName }})</h2>
     </div>
     <div class="pokedex-container">
-      <PokedexCard />
+      <PokedexCard
+        v-for="pokes in pokemonList"
+        v-bind:key="pokes.entry_number"
+        v-bind:pokemonNumber="pokes.entry_number"
+        v-bind:pokemonName="pokes.pokemon_species.name"
+      />
     </div>
   </section>
 </template>
@@ -39,7 +44,8 @@ $white: #fff;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly
+  justify-content: space-evenly;
+  align-content: space-around;
 }
 
 .pokedex-header h2 {

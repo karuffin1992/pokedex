@@ -1,15 +1,27 @@
 <template>
-    <div class="pokedex-card">
-        <div class="pokedex-card-header">
-          <div class="poke-name">text</div>
-          <div class="poke-number">01</div>
-        </div>
+  <div class="pokedex-card">
+    <div class="pokedex-card-header">
+      <div class="poke-name">{{ pokemonName }}</div>
+      <div class="poke-number">{{ pokemonNumber }}</div>
     </div>
+    <div class="pokedex-card-image">
+      <img :src="getImagePath()" :alt="pokemonName">
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'PokedexCard'
+  name: 'PokedexCard',
+  props: {
+    pokemonNumber: Number,
+    pokemonName: String
+  },
+  methods: {
+    getImagePath: function () {
+      return require(`./../assets/svg/${this.pokemonNumber}.svg`)
+    }
+  }
 }
 </script>
 
@@ -27,6 +39,7 @@ $lightBrillBlue: #3b43e6;
   transition: 0.3s;
   border: 1px solid $lightBrillBlue;
   border-radius: 0 15px 15px 15px;
+  margin: 5px;
 }
 
 .pokedex-card:hover {
@@ -41,9 +54,10 @@ $lightBrillBlue: #3b43e6;
 
 .poke-name {
   float: left;
-  margin: 6px 0px 0 10px;
-  font-size: 20px;
+  margin: 0px 0px 0 10px;
+  font-size: 30px;
   color: $white;
+  text-transform: uppercase;
 }
 
 .poke-number {
@@ -56,5 +70,11 @@ $lightBrillBlue: #3b43e6;
   text-align: center;
   align-items: center;
   border-radius: 15px 15px 0px 15px;
+}
+
+.pokedex-card-image img {
+  height: 150px;
+  width: 150px;
+  margin-left: 15px;
 }
 </style>
