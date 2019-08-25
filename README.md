@@ -9,6 +9,9 @@ I am using the following:
 
 I am also creating a "wrapper" library in order to create a broad array of functions that will be used in order to retrieve information such as Pokemon info, berry info, etc.
 
+Pokemon SVG's are from jnovack's GitHub:
+https://github.com/jnovack/pokemon-svg
+
 # To Do List
 * Create responsive layout
 * Link data from API to layout
